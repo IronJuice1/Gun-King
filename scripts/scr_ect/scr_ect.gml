@@ -74,9 +74,23 @@ function pickup_new_gun(_gun) {
 	with (parent_gun) { instance_destroy() }
 	
 	//Create new gun
-	with (instance_create_depth(parent_player.x, parent_player.y, depth - 2, _gun)) {
+	with (instance_create_depth(parent_player.x, parent_player.y, parent_player.depth - 2, _gun)) {
 		
 	}
 
+}
+
+function toggle_pause() {
 	
+	with _ctrl_pause { event_user(1) }
+	
+}
+
+function create_cloud(_layer, _x, _y, _spd) {
+		
+	var _id = instance_create_layer(_x, _y, _layer, cloud)
+	with _id {
+		move_spd = _spd	
+	}
+		
 }

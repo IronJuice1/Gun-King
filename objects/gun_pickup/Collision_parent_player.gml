@@ -1,6 +1,9 @@
 /// @desc
 
-instance_destroy()
+if draw_controlls == false {
 
-pickup_new_gun(desert_eagle)
+	draw_controlls = true
 
+	pickup_new_gun(desert_eagle)
+
+}

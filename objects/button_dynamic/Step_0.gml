@@ -17,7 +17,7 @@ if _check {
 	if draw_in_gui {
 		var _check2 = point_in_rectangle(MOUSE_GUI_X, MOUSE_GUI_Y, x - w2, y - h2, x + w2, y + h2)
 	} else {
-		var _check2 = point_in_rectangle(mouse_x, mouse_y, x - w2, y - h2, x + w2, y + h2)
+		var _check2 = point_in_rectangle(M_X, M_Y, x - w2, y - h2, x + w2, y + h2)
 	}
 	
 	if is_inside == false {

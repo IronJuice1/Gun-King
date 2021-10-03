@@ -1,5 +1,7 @@
 /// @desc
 
+
+
 //Make the object a singleton
 if (assign_singleton() == false)	exit
 
@@ -28,3 +30,11 @@ jump_timer_duration = 0
 //Jump if we click too early
 jump_pressed_remember = 0
 jump_pressed_remember_value = 12
+
+electrified_timer = 0
+timer = 0
+can_control = true
+
+is_dead = false
+
+

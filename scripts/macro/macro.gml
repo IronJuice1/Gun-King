@@ -9,18 +9,25 @@
 
 #endregion
 
+#macro M_X mouse_x
+#macro M_Y mouse_y
+
 //Ect
 #macro SINGLETON_OBJ_DEPTH -5000
+#macro CLOUD_LAYER_DEPTH 350
+#macro CLOUD_SPEED random_range(0.3, 0.6)
+#macro CLOUD_START_AMOUNT irandom_range(9, 14)
+#macro SHOCK_DURATION 55
 
 //Game Dev Settings
-#macro SHOW_DEBUG true
+#macro SHOW_DEBUG false
 #macro ENABLE_SCREENSHAKE true
 
 //Display Size
+#macro MY_GAME_WIDTH 384//(1080/4)
 #macro MY_GAME_HEIGHT 256//(1080/4)
-#macro MY_GAME_WIDTH 256//(1080/4)
-#macro GUI_WIDTH 1080/4
-#macro GUI_HEIGHT 1080/4
+#macro GUI_WIDTH 384
+#macro GUI_HEIGHT 256
 
 //Shorthands
 #macro DEV false

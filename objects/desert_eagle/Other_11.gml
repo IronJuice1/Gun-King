@@ -7,7 +7,7 @@ audio_play_sound(so_shoot_combined, 5, false)
 
 
 
-var _dir = point_direction(x, y, mouse_x, mouse_y)
+var _dir = point_direction(x, y, M_X, M_Y)
 
 if _dir > 90 and _dir < 270 {
 	var _dir_add = -35

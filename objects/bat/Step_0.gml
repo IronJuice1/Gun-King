@@ -1,5 +1,7 @@
 /// @desc
 
+if P exit
+
 if (collision_circle(x, y + 12, 64, parent_player, false, true) != noone) {
 	
 	is_flying = true

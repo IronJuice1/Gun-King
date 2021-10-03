@@ -37,6 +37,6 @@ if not is_undefined(follow_target) {
 }
 
 //These will go slightly outside of the room with screen shake (but its ok)
-var _final_x = x + random_change_x
-var _final_y = y + random_change_y
+var _final_x = room_width/2 + random_change_x
+var _final_y = room_height/2 + random_change_y
 camera_set_view_pos(view_camera[0], _final_x - MY_GAME_WIDTH/2, _final_y - MY_GAME_HEIGHT/2)

@@ -23,4 +23,20 @@ with (instance_create_depth(GUI_WIDTH*0.9, GUI_HEIGHT*0.8, depth, button_dynamic
 	draw_in_gui = true
 	
 }
+*/
+
+#region create clouds
+
+var _cloud_layer = layer_create(CLOUD_LAYER_DEPTH, "Clouds")
+
+repeat (CLOUD_START_AMOUNT) {
+	
+	var _spd = choose(CLOUD_SPEED, -CLOUD_SPEED)
+	create_cloud(_cloud_layer, irandom_range(0, room_width), irandom_range(0, room_height), _spd)
+	
+}
+
+#endregion
+
+
 

@@ -1,3 +1,3 @@
 
 //Find new follow target_room
-event_user(0)
+// event_user(0)

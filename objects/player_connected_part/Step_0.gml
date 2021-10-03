@@ -1,5 +1,7 @@
 /// @desc
 
+if P exit
+
 if instance_exists(parent_player) {
 
 	x_to = parent_player.x + x_offset

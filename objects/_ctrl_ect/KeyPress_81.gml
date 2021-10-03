@@ -1,8 +1,13 @@
-/// @desc 
+/// @desc Move a room up
 
-if DEV and not P {
+if DEV {
 	
-	if room == r_test_1 { my_room_goto(r_test_2) }
-	else { my_room_goto(r_test_1) }
+	//Move to room above
+	audio_play_sound(so_next_room_1, 5, false)	
 	
+	global.room_number += 1
+	var _room_to_goto = asset_get_index("r_" + string(global.room_number) + "_" + global.room_character)
+	room_goto(_room_to_goto)
+
 }
+

@@ -1,21 +1,22 @@
 /// @desc
+if P exit
 
 var _input = _ctrl_input
 
 
 if DEV {
 	if mouse_check_button_pressed(mb_middle) {
-		x = mouse_x
-		y = mouse_y
+		x = M_X
+		y = M_Y
 		
 	}
 }
 
 invis_frames = max(invis_frames - 1, 0)
-
+timer += 1
 
 // Set "player_movement_state"
-if place_meeting(x, y + 1, parent_collision) {
+if place_meeting(x, y + 1, parent_collision) or place_meeting(x, y + 1, parent_leaves) {
 	if player_movement_state != PLAYER_MOVEMENT_STATE.ON_GROUND {
 		audio_play_sound(so_land_1, 5, false)	
 	}
@@ -23,11 +24,25 @@ if place_meeting(x, y + 1, parent_collision) {
 } else
 	player_movement_state = PLAYER_MOVEMENT_STATE.AIR
 
+if player_movement_state == PLAYER_MOVEMENT_STATE.ON_GROUND {
+	
+	if electrified_timer == 1 {
+		audio_play_sound(so_shock_end, 5, false)	
+	}
+	electrified_timer = max(electrified_timer - 1, 0)
+	
+}
+
 #region Horizontal
 
 	var above_max_speed = ((hsp > PLAYER_BASE_MAX_HSP) or (hsp < -PLAYER_BASE_MAX_HSP))
 	
-	var dir = _input.right_hold - _input.left_hold
+	if (not (electrified_timer == 0)) or can_control == false {
+		var dir = 0
+	} else {
+		var dir = _input.right_hold - _input.left_hold 
+	}
+	
 	if not above_max_speed {
 		hsp += dir * PLAYER_BASE_ACC
 	} else {
@@ -66,8 +81,7 @@ if place_meeting(x, y + 1, parent_collision) {
 jump_pressed_remember = max(jump_pressed_remember - 1, 0)
 jump_timer = max(jump_timer - 1, 0)
 
-if (_input.action_1_clicked)
-{
+if (_input.action_1_clicked) and electrified_timer == 0 and can_control {
 	jump_pressed_remember = jump_pressed_remember_value	
 }
 
@@ -101,6 +115,15 @@ if (vsp < -PLAYER_BASE_MAX_VSP)
 	
 #endregion
 
+if place_meeting(x, y, parent_leaves) {
+	
+	vsp += GRAVITY
+	
+	hsp = hsp*0.7
+	vsp = vsp*0.7
+	
+}
+
 
 #region Collision (Vertical and Horizontal)
 
@@ -131,25 +154,60 @@ y += vsp
 // Animation
 event_user(6)
 
+//Move to room below
 if (y) > room_height {
 	
 	y -= room_height
-	show_debug_message("went to prev room: " + string(y))
-	audio_play_sound(so_prev_room_1, 5, false)	
-	room_goto_previous()
-		
+	audio_play_sound(so_prev_room_1, 5, false)
+	
+	global.room_number -= 1
+	
+	var _room_to_goto = asset_get_index("r_" + string(global.room_number) + "_" + global.room_character)
+	room_goto(_room_to_goto)
+
 }
 
+//Move to room above
 if (y + 18) < 0 {
 	
 	y += room_height
-	show_debug_message("went to next room: " + string(y))
 	audio_play_sound(so_next_room_1, 5, false)	
-	room_goto_next()
+	
+	global.room_number += 1
+	var _room_to_goto = asset_get_index("r_" + string(global.room_number) + "_" + global.room_character)
+	room_goto(_room_to_goto)
 	
 }
 
+//Move to the room to the right
+if (x - 2) > room_width {
+	
+	x -= room_width
+	audio_play_sound(so_next_room_1, 5, false)	
+	
+	//Change character
+	if global.room_character == "a" { global.room_character = "b" }
+	else { global.room_character = "a" }
+	
+	var _room_to_goto = asset_get_index("r_" + string(global.room_number) + "_" + global.room_character)
+	room_goto(_room_to_goto)
+	
+}
 
+//Move to the room to the left
+if (x + 2) < 0 {
+	
+	x += room_width
+	audio_play_sound(so_next_room_1, 5, false)	
+	
+	//Change character
+	if global.room_character == "a" { global.room_character = "b" }
+	else { global.room_character = "a" }
+	
+	var _room_to_goto = asset_get_index("r_" + string(global.room_number) + "_" + global.room_character)
+	room_goto(_room_to_goto)
+	
+}
 
 
 
